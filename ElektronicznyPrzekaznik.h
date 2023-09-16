@@ -25,18 +25,34 @@ public:
     relayLevel=0;
   }
 
-  void setState(bool newState){
-      state=newState;
-      for (int i =0; i < pinsLen; i++){
-        digitalWrite(pins[i], state?((relayLevel & (1 << i))):offState);
-      }  
+  bool setState(bool newState){
+    state=newState;
+    for (int i = 0; i < pinsLen; i++){
+        // Ustawienie stanu i-tego pinu (pins[i]) na wysoki lub niski w zależności od poziomu sterowania (relayLevel).
+        // Jeśli i-ty bit w relayLevel (w reprezentacji binarnej) jest ustawiony na 1, pin zostanie ustawiony na stan wysoki (ON).
+        // W przeciwnym przypadku, pin zostanie ustawiony na wartość określoną przez offState (stan niski lub wyłączony).
+      digitalWrite(pins[i], state?((relayLevel & (1 << i))):offState); // todo: zamiast 1 dać "!offState" | digitalWrite(pins[i], state?(((!offState)& (1 << i))):offState);
+    }
+    return true;
   }
 
-  void setRelayLevel(byte newRelayLevel){
-        relayLevel=newRelayLevel;
-        for (int i =0; i < pinsLen; i++){
-          digitalWrite(pins[i], (relayLevel & (1 << i)));
-        }
+  // void setRelayLevel(byte newRelayLevel){
+  //       byte newR = map(powerLevel, 0, 100, 0, 15);
+  //       relayLevel=newRelayLevel;
+  //       for (int i =0; i < pinsLen; i++){
+  //         digitalWrite(pins[i], (relayLevel & (1 << i))); // tu też: digitalWrite(pins[i], (relayLevel & ((!offState) << i)));
+  //       }
+  // }
+  bool setRelayLevel(int &powerLevel){
+    relayLevel = map(powerLevel, 0, 100, 0, 15);//2^pinsLen - 1);
+    for (int i =0; i < pinsLen; i++){
+      digitalWrite(pins[i], (relayLevel & (1 << i))); // tu też: digitalWrite(pins[i], (relayLevel & ((!offState) << i)));
+    }
+    return true;
+  }
+
+  byte getRelayLevel(){
+    return relayLevel;
   }
 
   ~ElektronicznyPrzekaznik() {
