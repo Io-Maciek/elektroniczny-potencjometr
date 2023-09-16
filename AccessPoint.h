@@ -12,16 +12,16 @@ class AccessPoint{
 
   void fromSetPowerLevel() {
     if (server.method() != HTTP_POST) {
-      server.send(405, "text/html", "Method Not Allowed");
+      server.send(405, "text/plain", "Method Not Allowed");
     }else if(!server.hasArg("value")){
-      server.send(400, "text/html", "Parameter 'value' was not provided");
+      server.send(400, "text/plain", "Parameter 'value' was not provided");
     } else {
       int value = server.arg("value").toInt();
       value = value > 100 ? 100 : (value < 0 ? 0 : value);
       device.sendPowerLevelEvent(value);
+      ep.setRelayLevel(value);
 
-      server.sendHeader("Location", "/"); // Ustawienie nagłówka Location na nowy adres URL
-      server.send(302, "text/plain", ""); // Wysłanie odpowiedzi HTTP 302 (przekierowanie)
+      server.send(200, "text/plain", String(ep.getRelayLevel())); // Wysłanie odpowiedzi HTTP 302 (przekierowanie)
     }
   }
 
@@ -31,7 +31,7 @@ class AccessPoint{
 
   void formSetWifi() {
     if (server.method() != HTTP_POST) {
-      server.send(405, "text/html", "Method Not Allowed");
+      server.send(405, "text/plain", "Method Not Allowed");
     } else {
       WifiConfig c;
       String gotSsid = server.arg("ssid");
