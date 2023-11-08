@@ -46,10 +46,8 @@ public:
   bool setRelayLevel(int &powerLevel){
     relayLevel = map(powerLevel, 0, 100, 0, pow(2, pinsLen) - 1);
     for (int i =0; i < pinsLen; i++){
-      Serial.println(pins[i]);
       digitalWrite(pins[i], (relayLevel & (1 << i))); // tu też: digitalWrite(pins[i], (relayLevel & ((!offState) << i)));
     }
-    Serial.println(relayLevel);
     return true;
   }
 

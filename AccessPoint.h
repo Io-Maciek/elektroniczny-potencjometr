@@ -1,6 +1,5 @@
 #include <ESP8266WebServer.h>
 
-
 class AccessPoint{
   void _indexHandler() {
     WifiConfig c;
@@ -48,30 +47,23 @@ class AccessPoint{
     }
   }
 
-  void getAcs() {
-    acs.Measure();
-    server.send(200, "application/json", String(acs.json())); // Wysłanie odpowiedzi HTTP 302 (przekierowanie)
-  }
-
   void _notFoundHandler(){
       server.send(404, "text/html", "ERR 404");
-  }
+    }
     
   private:
     ESP8266WebServer  server;
     SinricProDimSwitch& device;
     ElektronicznyPrzekaznik& ep;
-    ACS712& acs;
 
   public:
-    AccessPoint(SinricProDimSwitch& d, ElektronicznyPrzekaznik& e, ACS712& avs) : server(80), device(d), ep(e), acs(avs){
-      WiFi.softAP("esp12_PotencjometrGrzałkiAP", "12345678");
+    AccessPoint(SinricProDimSwitch& d, ElektronicznyPrzekaznik& e) : server(80), device(d), ep(e){
+      WiFi.softAP("PotencjometrGrzałkiAP", "12345678");
 
       server.on("/", [this]() { _indexHandler(); });
       server.on("/setWifi", [this]() { formSetWifi(); });
       server.on("/set", [this]() { fromSetPowerLevel(); });
       server.on("/get", [this]() { getPowerLevel(); });
-      server.on("/acs", [this]() { getAcs(); });
       server.onNotFound([this]() { _notFoundHandler(); });
       server.begin();
     }
