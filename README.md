@@ -3,7 +3,8 @@ Urządzenie zastępujące fizyczny potencjometr przekaźnikami eletrycznymi ster
 
 
 #  Diagram
-![Diagram połączeń w fritzing](elektroniczny_potencjometr.png)
+| ![Diagram połączeń w fritzing](elektroniczny_potencjometr.png) |
+| -------------------------------------------------------------- |
 
 ### Wymagane Elementy
 - ESP-12
