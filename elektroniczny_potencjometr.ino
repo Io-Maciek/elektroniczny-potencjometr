@@ -12,14 +12,10 @@
 #define APP_SECRET        "<APP SECRET HERE>"
 #define DEVICE_ID         "<DEVICE ID HERE>"
 
-/*
-
-  CODE FOR ESP-12E
-
-*/
 
 
-byte pins[] = {15,13,12,14};
+// dawniej 4 było 15 w tym samym miejscu '{15,13,12,14}'
+byte pins[] = {4,13,12,14};
 ElektronicznyPrzekaznik relay(pins, 4, LOW);
 SinricProDimSwitch &myDimSwitch = SinricPro[DEVICE_ID];
 ACS712 avs = ACS712(A0);

@@ -5,10 +5,23 @@ class AccessPoint{
   void _indexHandler() {
     WifiConfig c;
     String ssid = c.getSSID();
-    String pwd = c.getPWD();
 
-    String html = "<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'><title>Potencjometr Config</title></head><body><h1>Ustaw WiFi - Potencjometr</h1><form method='POST' action='/setWifi'><input name='ssid' value='"+ssid+"'><input name='pwd' value='"+pwd+"'><input type='submit'></form></body></html>";
-    server.send(200, "text/html", html);    
+    int number_of_networks = WiFi.scanNetworks();
+    String output="";
+    for(int i = 0; i<number_of_networks;i++)
+    {
+      if(WiFi.SSID(i) == ssid){
+      output+="<option selected value=\""+WiFi.SSID(i)+"\">"+WiFi.SSID(i)+"</option>";
+
+      }else{
+      output+="<option value=\""+WiFi.SSID(i)+"\">"+WiFi.SSID(i)+"</option>";
+      }
+    }
+
+    output = "<select name=\"ssid\" id=\"ssid\">"+output+"</select>";
+
+    String html = "<html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'><title>Potencjometr Config</title></head><body><h1>Ustaw WiFi - Potencjometr</h1><form method='POST' action='/setWifi'>"+output+"<input name='pwd' value='"+c.getPWD()+"'><input type='submit'></form></body></html>";
+    server.send(200, "text/html", html); 
   }
 
   void fromSetPowerLevel() {
