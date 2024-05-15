@@ -7,7 +7,7 @@ Urządzenie zastępujące fizyczny potencjometr przekaźnikami eletrycznymi ster
 
 ### Wymagane Elementy
 - ESP-12
-- CS712
+- ACS712
 - AD-DC 5V
 - Moduł 4 przekaźników magnetycznych
 - Regulator mocy obrotów silnika 230V AC
