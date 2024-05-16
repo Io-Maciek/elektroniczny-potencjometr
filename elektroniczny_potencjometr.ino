@@ -3,14 +3,19 @@
 #include "SinricProDimSwitch.h"
 #include <ArduinoOTA.h>
 
+#include "WifiConfig.cpp"
 #include "ACS712.cpp"
-#include "ElektronicznyPrzekaznik.h"
-#include "WifiConfig.h"
+#include "ElektronicznyPrzekaznik.cpp"
 #include "AccessPoint.h"
 
-#define APP_KEY           "<APP KEY HERE>"
-#define APP_SECRET        "<APP SECRET HERE>"
-#define DEVICE_ID         "<DEVICE ID HERE>"
+
+
+//#define APP_KEY           "<APP KEY HERE>"
+//#define APP_SECRET        "<APP SECRET HERE>"
+//#define DEVICE_ID         "<DEVICE ID HERE>"
+#define APP_KEY           "a7f56519-d208-4ec6-8bc9-b18369691339"
+#define APP_SECRET        "dfc2fb86-cf53-42dc-8ec1-9b3fa9085c39-47f6d7ae-13cb-4f09-a0b0-6771e22a3d78"
+#define DEVICE_ID         "64996c4f743f91207040bd06"
 
 
 

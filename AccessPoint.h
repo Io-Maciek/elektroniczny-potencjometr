@@ -1,6 +1,5 @@
 #include <ESP8266WebServer.h>
 
-
 class AccessPoint{
   void _indexHandler() {
     WifiConfig c;
