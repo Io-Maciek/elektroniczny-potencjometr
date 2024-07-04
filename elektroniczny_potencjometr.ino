@@ -73,7 +73,8 @@ void setup() {
   SinricPro.begin(APP_KEY, APP_SECRET);
 
   // setup over the wifi uploading
-  ArduinoOTA.setHostname("ESP-Grzalka");
+  ArduinoOTA.setHostname("ESP12_NODEMCU09-Potencjometr");
+  ArduinoOTA.setPassword("#iioo37");
 
   ArduinoOTA.onStart([]() {
     String type;
